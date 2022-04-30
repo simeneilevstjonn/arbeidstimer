@@ -71,9 +71,12 @@ $desc .= $description;
 
 
 // Connect to SQL server
-$host = "172.30.128.1";
-$username = "ArbeidstimerTest";
-$password = "4k@3mD4MNABsm!D!";
+// Get sql login from file
+$loginFile = fopen("sqllogin.txt", "r") or die("Failed to get login file.");
+$lines = explode("\n", fread($loginFile, filesize("sqllogin.txt")));
+$host = trim($lines[0]);
+$username = trim($lines[1]);
+$password = trim($lines[2]);
 
 $conn = sqlsrv_connect($host, array("UID" => $username, "PWD" => $password, "Database" => "Arbeidstimer", "TrustServerCertificate" => 1, "CharacterSet" => "UTF-8"));
 
